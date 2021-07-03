@@ -8,6 +8,18 @@ import (
 	"os"
 )
 
+func getPublicFolder() string {
+	var publicFolder string
+
+	if len(os.Args) < 2 {
+		publicFolder = "public"
+	} else {
+		publicFolder = os.Args[1]
+	}
+
+	return publicFolder
+}
+
 func ReverseProxy() gin.HandlerFunc {
 	target := os.Getenv("API_HOST")
 
@@ -24,15 +36,17 @@ func ReverseProxy() gin.HandlerFunc {
 }
 
 func main() {
+	println("Serving public folder: " + getPublicFolder())
+
 	router := gin.Default()
 	router.GET("/api/*all", ReverseProxy())
 	router.POST("/api/*all", ReverseProxy())
 	router.PUT("/api/*all", ReverseProxy())
 	router.PATCH("/api/*all", ReverseProxy())
 	router.DELETE("/api/*all", ReverseProxy())
-	router.Use(static.Serve("/", static.LocalFile("public", false)))
+	router.Use(static.Serve("/", static.LocalFile(getPublicFolder(), false)))
 	router.NoRoute(func(c *gin.Context) {
-		c.File("public/index.html")
+		c.File(getPublicFolder() + "/index.html")
 	})
 	router.Run()
 }
