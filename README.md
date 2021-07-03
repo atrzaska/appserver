@@ -19,3 +19,7 @@ This will serve files from `public` folder
 You can also specify public folder
 
     API_HOST=localhost:4000 appserver dist
+
+## License
+
+MIT
