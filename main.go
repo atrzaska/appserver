@@ -39,6 +39,9 @@ func main() {
 	println("Serving public folder: " + getPublicFolder())
 
 	router := gin.Default()
+	router.GET("/socket/websocket", ReverseProxy())
+	router.GET("/live/websocket", ReverseProxy())
+	router.GET("/ws", ReverseProxy())
 	router.GET("/api/*all", ReverseProxy())
 	router.POST("/api/*all", ReverseProxy())
 	router.PUT("/api/*all", ReverseProxy())
