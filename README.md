@@ -8,7 +8,7 @@ Simple Single Page Application server written in Go Gin that can forward API cal
 
 ## Installation
 
-go get -u github.com/atrzaska/appserver
+    go get -u github.com/atrzaska/appserver
 
 ## Usage
 
